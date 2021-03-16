@@ -6,7 +6,7 @@ from .forms import BookForm
 
 def book_list(request):
     '''select all books from database'''
-    book_list = Book.objects.all()
+    book_list = Book.objects.all().filter(is_deleted=False)
     context = {
         'books': book_list,
     }
@@ -15,12 +15,14 @@ def book_list(request):
 
 def del_book(request, pk):
     book_obj = Book.objects.get(id=pk)
-    book_obj.delete()
+    # book_obj.delete()
+    book_obj.is_deleted = True
+    book_obj.save()
     return redirect('book:index')
 
 
 def edit_book(request, pk):
-    book_obj = Book.objects.get(id=pk)
+    book_obj = Book.objects.filter(is_deleted=False).get(id=pk)
 
     if request.method == 'POST':
         book_obj = Book.objects.get(id=pk)

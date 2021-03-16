@@ -7,6 +7,7 @@ class Book(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2)
     publisher = models.ForeignKey("Publisher", on_delete=models.CASCADE, related_name="books")
     author = models.ManyToManyField("Author", related_name="books")
+    is_deleted = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'tb_book'
