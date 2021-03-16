@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Index</title>
+    </head>
+    
+    <body>
+        <div>
+            <table border="1">
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Author</th>
+                    <th>Publisher</th>
+                    <th>Operation</th>
+                </tr>    
+                {% for book in books %}
+                <tr>
+                    <td>{{ book.book_name }}</td>
+                    <td>{{ book.price }}</td>
+                    <td>
+                        {% for book_author in book.author.all %}
+                            {{ book_author }},
+                        {% endfor %}
+                    </td>
+                    <td>{{ book.publisher }}</td>
+                    <td>
+                        <a href="/book/del_book/?id={{ book.id }}">Delete</a>
+                        <a href="{% url 'book:edit_book' %}?id={{ book.id }}&name={{ book.book_name }}&price={{ book.price }}">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </body>
+</html>
