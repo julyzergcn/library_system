@@ -24,24 +24,14 @@ def edit_book(request, pk):
 
     if request.method == 'POST':
         book_obj = Book.objects.get(id=pk)
-        form = BookForm(data=request.POST)
+        form = BookForm(data=request.POST, instance=book_obj)
         if form.is_valid():
             # save form data
-            book_obj.book_name = form.cleaned_data['name']
-            book_obj.price = form.cleaned_data['price']
-            book_obj.publisher = form.cleaned_data['publisher']
-            # book_obj.author = form.cleaned_data['author']
-            book_obj.save()
-            book_obj.author.set(form.cleaned_data['author'])
+            form.save()
             return redirect(resolve_url('book:edit_book', pk))
 
     else:  # request.method == 'GET'
-        form = BookForm(initial={
-            'name': book_obj.book_name,
-            'price': book_obj.price,
-            'publisher': book_obj.publisher,
-            'author': book_obj.author.all(),
-            })
+        form = BookForm(instance=book_obj)
 
     context = {
         'book_obj': book_obj,
