@@ -25,8 +25,8 @@
                     </td>
                     <td>{{ book.publisher }}</td>
                     <td>
-                        <a href="/book/del_book/?id={{ book.id }}">Delete</a>
-                        <a href="{% url 'book:edit_book' %}?id={{ book.id }}&name={{ book.book_name }}&price={{ book.price }}">Edit</a>
+                        <a href="{% url 'book:del_book' book.id %}">Delete</a>
+                        <a href="{% url 'book:edit_book' book.id %}">Edit</a>
                     </td>
                 </tr>
                 {% endfor %}

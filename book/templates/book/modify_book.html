@@ -11,25 +11,29 @@
             <table border="1">
                 <tr>
                     <td>ID</td>
-                    <td>{{ id }}</td>
+                    <td>{{ book_obj.id }}</td>
                 </tr>
                 <tr>
                     <td>Name</td>
-                    <td><input type="text" value="{{ name }}"></td>
+                    <td><input type="text" value="{{ book_obj.book_name }}" name="name"></td>
                 </tr>
                 <tr>
                     <td>Price</td>
-                    <td><input type="text" value="{{ price }}"></td>
+                    <td><input type="text" value="{{ book_obj.price }}" name="price"></td>
                 </tr>
                 <tr>
                     <td>Author</td>
+                    <td>{{ book_obj.author }}</td>
                 </tr>
                 <tr>
                     <td>Publisher</td>
+                    <td>{{ book_obj.publisher }}</td>
                 </tr>
 
             </table> 
 
+            <input type="submit" value="Submit" />
+            <a href="{% url 'book:index' %}">Book index</a>
         </form>
     </div>
 </body>
