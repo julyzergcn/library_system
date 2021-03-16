@@ -21,19 +21,27 @@ def del_book(request, pk):
 
 def edit_book(request, pk):
     book_obj = Book.objects.get(id=pk)
-    form = BookForm(initial={
-        'name': book_obj.book_name,
-        'price': book_obj.price})
 
     if request.method == 'POST':
-        book_name = request.POST.get('name')
-        book_price = request.POST.get('price')
         book_obj = Book.objects.get(id=pk)
-        book_obj.book_name = book_name
-        book_obj.price = book_price
-        book_obj.save()
-        # return redirect(request.path)
-        return redirect(resolve_url('book:edit_book', pk))
+        form = BookForm(data=request.POST)
+        if form.is_valid():
+            # save form data
+            book_obj.book_name = form.cleaned_data['name']
+            book_obj.price = form.cleaned_data['price']
+            book_obj.publisher = form.cleaned_data['publisher']
+            # book_obj.author = form.cleaned_data['author']
+            book_obj.save()
+            book_obj.author.set(form.cleaned_data['author'])
+            return redirect(resolve_url('book:edit_book', pk))
+
+    else:  # request.method == 'GET'
+        form = BookForm(initial={
+            'name': book_obj.book_name,
+            'price': book_obj.price,
+            'publisher': book_obj.publisher,
+            'author': book_obj.author.all(),
+            })
 
     context = {
         'book_obj': book_obj,
