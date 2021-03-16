@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, resolve_url
 
 from .models import Book, Publisher, Author
+from .forms import BookForm
 
 
 def book_list(request):
@@ -20,6 +21,9 @@ def del_book(request, pk):
 
 def edit_book(request, pk):
     book_obj = Book.objects.get(id=pk)
+    form = BookForm(initial={
+        'name': book_obj.book_name,
+        'price': book_obj.price})
 
     if request.method == 'POST':
         book_name = request.POST.get('name')
@@ -33,6 +37,7 @@ def edit_book(request, pk):
 
     context = {
         'book_obj': book_obj,
+        'form': form,
     }
     return render(request, 'book/modify_book.html', context)
 
