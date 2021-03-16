@@ -16,12 +16,12 @@
                 <tr>
                     <td>Name</td>
                     <!-- <td><input type="text" value="{{ book_obj.book_name }}" name="name"></td> -->
-                    <td>{{ form.name }}</td>
+                    <td>{{ form.book_name }}{{ form.book_name.errors }}</td>
                 </tr>
                 <tr>
                     <td>Price</td>
                     <!-- <td><input type="text" value="{{ book_obj.price }}" name="price"></td> -->
-                    <td>{{ form.price }}</td>
+                    <td>{{ form.price }}{{ form.price.errors }}</td>
                 </tr>
                 <tr>
                     <td>Author</td>
