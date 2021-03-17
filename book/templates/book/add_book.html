@@ -1,28 +1,23 @@
 {% extends 'book/base.html' %}
 
 {% block title %}
-    Edit
+    Add Book
 {% endblock %}
 
 {% block content %}
-<br>
-        <h3>Modify Book's Information</h3>
+    <div>
+        <h3>Add a Book</h3>
         <form action="" method="post">
             {% csrf_token %}
-            <table cellpadding="0" cellspacing="0" border="0" class="form_table">
-                <tr>
-                    <td>ID</td>
-                    <td>{{ book_obj.id }}</td>
-                </tr>
+            <table border="1">
                 <tr>
                     <td>Name</td>
-                    <!-- <td><input type="text" value="{{ book_obj.book_name }}" name="name"></td> -->
-                    <td>{{ form.book_name }}{{ form.book_name.errors }}</td>
+                    <td>{{ form.book_name }}</td>
                 </tr>
                 <tr>
                     <td>Price</td>
                     <!-- <td><input type="text" value="{{ book_obj.price }}" name="price"></td> -->
-                    <td>{{ form.price }}{{ form.price.errors }}</td>
+                    <td>{{ form.price }}</td>
                 </tr>
                 <tr>
                     <td>Author</td>
@@ -38,5 +33,6 @@
             <input type="submit" value="Submit" />
             <a href="{% url 'book:index' %}">Book index</a>
         </form>
+    </div>
 
 {% endblock %}

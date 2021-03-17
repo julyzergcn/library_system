@@ -42,5 +42,22 @@ def edit_book(request, pk):
     return render(request, 'book/modify_book.html', context)
 
 
+def add_book(request):
+    if request.method == 'POST':
+        form = BookForm(data=request.POST)
+        if form.is_valid():
+            # book_name = form.cleaned_data.get('book_name')
+            # price = form.cleaned_data.get('price')
+            # author = form.cleaned_data.get('author')
+            # publisher = form.cleaned_data.get('publisher')
+            form.save()
+            return redirect(resolve_url('book:add_book'))
+    else:
+        form = BookForm()        
+    context = {
+        'form': form,
+    }    
+    return render(request,'book/add_book.html', context)
+
 
 

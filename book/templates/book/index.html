@@ -1,36 +1,43 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Index</title>
-    </head>
-    
-    <body>
-        <div>
-            <table border="1">
+{% extends 'book/base.html' %}
+    {% load static %}
+
+    {% block title %}Index{% endblock %}
+{% block content %}
+<br>
+    <h1>The list of Books</h1>
+         <table class="table table-hover">
+            <thead class="thead-light">   
                 <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Author</th>
-                    <th>Publisher</th>
-                    <th>Operation</th>
-                </tr>    
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Publisher</th>
+                    <th scope="col">Operation</th>
+                </tr> 
+            </thead>        
                 {% for book in books %}
                 <tr>
                     <td>{{ book.book_name }}</td>
                     <td>{{ book.price }}</td>
                     <td>
                         {% for book_author in book.author.all %}
-                            {{ book_author }},
+                            {{ book_author|join:"," }}
                         {% endfor %}
                     </td>
                     <td>{{ book.publisher }}</td>
                     <td>
-                        <a href="{% url 'book:del_book' book.id %}">Delete</a>
-                        <a href="{% url 'book:edit_book' book.id %}">Edit</a>
+                        <a href="{% url 'book:del_book' book.id %}">
+                            <button type="button" class="btn btn-primary">Delete</button>
+                        </a>
+                        <a href="{% url 'book:edit_book' book.id %}">
+                            <button type="button" class="btn btn-success">Edit</button>
+                        </a>
                     </td>
                 </tr>
                 {% endfor %}
             </table>
-        </div>
-    </body>
-</html>
+            <a href="{% url 'book:add_book' %}">
+                <button type="button" class="btn btn-danger">Add</button>
+            </a>
+
+{% endblock %}
