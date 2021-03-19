@@ -12,3 +12,6 @@ class BookForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = ('book_name', 'price', 'author', 'publisher')
+
+
+BookFormSet = forms.modelformset_factory(Book,form=BookForm)

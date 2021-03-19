@@ -1,5 +1,5 @@
 {% extends 'book/base.html' %}
-
+{% load static %}
 {% block title %}
     Edit
 {% endblock %}
@@ -34,6 +34,20 @@
                 </tr>
 
             </table> 
+
+            <fieldset>
+                <legend>Book FormSet</legend>
+                <!-- {{ book_formset.as_table }} -->
+                {{ book_formset.non_form_errors }}
+                {% for book_form in book_formset %}
+                
+                    {{ book_form.errors }}
+                    {{ book_form.book_name }}
+                    {{ book_form.price }}
+                    {{ book_form.author }}
+                    {{ book_form.publisher }}
+                {% endfor %}    
+            </fieldset>
 
             <input type="submit" value="Submit" />
             <a href="{% url 'book:index' %}">Book index</a>
