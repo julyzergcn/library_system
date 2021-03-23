@@ -12,8 +12,6 @@
         <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/bookstrap.min.css' %}" crossorigin="anonymous">
         <script src="{% static 'js/jquery-1.12.4.min.js' %}" crossorigin="anonymous"></script>
         <script src="{% static 'js/bootstrap.bundle.min.js' %}" crossorigin="anonymous"></script> -->
-        <script src="{% static 'js/jquery.js' %}"></script>
-        <script src="{% static 'js/jquery.formset.js' %}"></script>
         <title>{% block title %}Title{% endblock %}</title>     
     </head>
     
@@ -23,6 +21,8 @@
             {% endblock %}
         </div>
         {% block script %}
+        <!-- <script src="{% static 'js/jquery.js' %}"></script>
+        <script src="{% static 'js/jquery.formset.js' %}"></script> -->
         {% endblock %}
     </body>
 </html>

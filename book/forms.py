@@ -12,10 +12,11 @@ class BookForm(forms.ModelForm):
 
     class Meta:
         model = Book
-        fields = ('id', 'book_name', 'price', 'author', 'publisher')
-        js = formset_media_js + (
+        # fields = ('id', 'book_name', 'price', 'author', 'publisher')
+        fields = ('id', 'book_name', 'price', 'publisher')
 
-        )
+    class Media:
+        js = formset_media_js
 
 
 BookFormSet = forms.modelformset_factory(Book, form=BookForm, extra=0)

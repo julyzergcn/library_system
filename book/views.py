@@ -96,21 +96,15 @@ def edit_book(request, pk):
 
 def book_list(request):
     if request.method == 'POST':
-        form = BookForm(data=request.POST)
-        if form.is_valid():
-            # save form data
-            book = form.save()
-            book_formset = BookFormSet(request.POST)
-            if book_formset.is_valid():
-                book_formset.save()
-            return redirect(resolve_url('book:index'))
+        book_formset = BookFormSet(request.POST)
+        if book_formset.is_valid():
+            book_formset.save()
+            return redirect('book:index')
 
     else:  # request.method == 'GET'
-        form = BookForm()
         book_formset = BookFormSet()
 
     context = {
-        'form': form,
-        'formset': book_formset
+        'formset': book_formset,
     }
     return render(request, 'book/index.html', context)
