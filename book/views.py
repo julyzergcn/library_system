@@ -54,7 +54,8 @@ def add_book(request):
             book_formset = BookFormSet(request.POST)
             if book_formset.is_valid():
                 book_formset.save()
-            return redirect(resolve_url('book:add_book'))
+            # return redirect(resolve_url('book:add_book'))
+            return redirect(resolve_url('book:index'))
     else:
         form = BookForm() 
         book_formset = BookFormSet()       
@@ -62,7 +63,8 @@ def add_book(request):
         'form': form,
         'book_formset': book_formset
     }    
-    return render(request,'book/add_book.html', context)
+    # return render(request,'book/add_book.html', context)
+    return render(request,'book/index.html', context)
 
 
 def edit_book(request, pk):

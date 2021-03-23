@@ -1,12 +1,13 @@
 {% extends 'book/base.html' %}
     {% load static %}
+    {% load formset_tags %}
     {% load book_extras %}
     {% block title %}Index{% endblock %}
 {% block content %}
 <br>
     <h1>The list of Books</h1>
     {% current_time "%Y-%m-%d %I:%M %p" as the_time %}
-    <p>The time is {{ the_time }}</p>
+    <span>The time is {{ the_time }}</span>
          <!-- <table class="table table-hover">
             <thead class="thead-light">   
                 <tr>
@@ -38,16 +39,46 @@
                 </tr> 
                 {% endfor %}
          </table> -->
-            {{ formset.management_form }}
-            <table>
-            {% for book_forms in formset %}
-              {% for book in book_forms %}
-                {{ book }}
-              {% endfor %}
-            {% endfor %}
-            </table>
+            <!-- 
             <a href="{% url 'book:add_book' %}">
                 <button type="button" class="btn btn-danger">Add</button>
-            </a>
+            </a> -->
+        
 
+            <div id="formset" data-formset-prefix="{{ formset.prefix }}">
+                {{ formset.management_form }}
+            
+                <div data-formset-body>
+                    <!-- New forms will be inserted in here -->
+                    {% for form in formset %}
+                        <div data-formset-form>
+                            {{ form.id }}
+                            {{ form }}
+                            <a href="#">
+                                <button type="button" data-formset-delete-button>Delete form</button>
+                            </a>     
+                        </div>
+                    {% endfor %}
+                </div>
+                <script type="form-template" data-formset-empty-form>
+                    {% escapescript %}
+                        <div data-formset-form>
+                            {{ formset.empty_form }}
+                            <button type="button" data-formset-delete-button>Delete form</button>
+                        </div>
+                    {% endescapescript %}
+                </script>
+            
+                <!-- This button will add a new form when clicked -->
+                <input type="button" value="Add Book" data-formset-add>
+                <a href="{% url 'book:add_book' %}">
+                <input type="submit" value="Submit" id="add"></a>
+            
+                <script>jQuery(function($) {
+                    $("#formset").formset({
+                        animateForms: true
+                    });
+                });</script>
+            
+            </div>
 {% endblock %}
